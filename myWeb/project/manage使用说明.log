@@ -1,0 +1,118 @@
+一、manage.py命令选项
+
+manage.py是每个Django项目中自动生成的一个用于管理项目的脚本文件，需要通过python命令执行。manage.py接受的是Django提供的内置命令。
+
+内置命令包含
+
+check
+dbshell
+diffsettings
+flush
+makemigrations
+migrate
+runserver
+shell
+startapp
+startproject
+test
+其实有三种方式，可以在cmd窗口中执行Django提供的内置命令：
+
+$ django-admin <command> [options]
+$ python manage.py <command> [options]
+$ python -m django <command> [options]
+1
+2
+3
+其中
+1、django-admin是用于管理Django的命令行工具集，当我们成功安装Django后，在操作系统中就会有这个命令，但是根据安装方式或者系统环境的不同，你可能需要配置一下调用路径。在Linux下，该命令一般位于site-packages/django/bin，最好做一个链接到/usr/local/bin，方便调用。Windows下可以配置系统环境变量
+
+2、manage.py则是每个Django项目中自动生成的一个用于管理项目的脚本文件，需要在cmd窗口中cd到Django项目的manage.py所在的目录后通过python命令执行。
+
+其中的command是Django内置的或者你自定义的命令。
+
+当然你可以在在pycharm中启动manage.py时设置参数。
+
+1. check
+
+检查整个Django项目是否存在常见问题。
+
+默认情况下，所有应用都将被选中。可以通过提供app的名字检查指定的应用：
+
+python manage.py check app1
+1
+2. diffsettings
+
+python manage.py diffsettings
+1
+显示当前设置文件与Django的默认设置之间的差异。
+
+3. flush
+
+python manage.py flush
+1
+从数据库中删除所有数据。已应用的迁移不会被清除。只删除具体数据，不删除数据表！
+
+如果您希望从空数据库启动并重新运行所有迁移，则应该删除并重新创建数据库，然后再运行migrate，这样会连原来的数据表都删了。
+
+4. makemigrations
+
+python manage.py makemigrations app1 app2
+1
+根据检测到的模型创建新的迁移。迁移的作用，更多的是将数据库的操作，以文件的形式记录下来，方便以后检查、调用、重做等等。尤其是对于Git版本管理，它无法获知数据库是如何变化的，只能通过迁移文件中的记录来追溯和保存。
+
+5. migrate
+
+python manage.py migrate
+1
+使数据库状态与当前模型集和迁移集同步。说白了，就是将对数据库的更改，主要是数据表设计的更改，在数据库中真实执行。例如，新建、修改、删除数据表，新增、修改、删除某数据表内的字段等等。
+
+6. runserver
+
+python manage.py runserver
+1
+启用Django为我们提供的轻量级的开发用的Web服务器。默认情况下，服务器运行在IP地址127.0.0.1的8000端口上。如果要自定义服务器端口和地址，可以显式地传递一个IP地址和端口号给它。
+
+python manage.py runserver 127.0.0.1:8080
+1
+7. shell
+
+python manage.py shell
+1
+启动带有Django环境的Python交互式解释器，也就是命令行环境。默认使用基本的python交互式解释器。这个命令非常常用，是我们测试和开发过程中不可或缺的部分！
+
+8. startapp
+
+python manage.py startapp app_name
+1
+创建新的app。
+
+默认情况下，会在这个新的app目录下创建一系列文件模版，比如models.py、views.py、admin.py等等。
+
+9. startproject
+x
+python manage.py startproject project_name
+1
+新建工程。默认情况下，新目录包含manage.py脚本和项目包（包含settings.py和其他文件）。
+
+10. test
+
+python manage.py test [test_label [test_label ...]]
+1
+运行所有已安装的app的测试代码。
+
+二、app提供的命令
+
+前面是Django核心提供的命令项，下面则是一些内置app，比如auth等提供的命令项。它们只在对应的app启用的时候才可用。
+
+changepassword
+createsuperuser
+clearsessions
+collectstatic
+
+三、 共有参数
+
+–pythonpath PYTHONPATH
+–settings SETTINGS
+–traceback
+–verbosity {0,1,2,3}, -v {0,1,2,3}
+–no-color

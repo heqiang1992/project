@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+<p>this is a search page.
+    welcome ,{{ person_name }}
+</p>
+
+    <form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+    </form>
+
+<p>You searched for: <strong>{{ query }}</strong></p>
+
+{% if authors %}
+    <p>Found {{ authors|length }} author:{{ authors|pluralize }}.</p>
+    <ul>
+        {% for author in authors %}
+        <li>{{ author.first_name }}.{{ author.last_name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No books matched your search criteria.</p>
+{% endif %}
+
+{% if error %}
+    <p>Wrong search Item!</p>
+{% endif %}
+</body>
+</html>
