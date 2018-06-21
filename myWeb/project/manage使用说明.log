@@ -51,7 +51,6 @@ python manage.py diffsettings
 python manage.py flush
 1
 从数据库中删除所有数据。已应用的迁移不会被清除。只删除具体数据，不删除数据表！
-
 如果您希望从空数据库启动并重新运行所有迁移，则应该删除并重新创建数据库，然后再运行migrate，这样会连原来的数据表都删了。
 
 4. makemigrations

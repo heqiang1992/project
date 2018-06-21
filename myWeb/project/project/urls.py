@@ -31,5 +31,5 @@ urlpatterns = [
     url("^thanks/$",thanks),
     url("^search_page/$",view.search_page),
     url("^search/$",view.search),
-url("^contact/$",view.contact),
+    url("^contact/$",view.contact),
 ]
