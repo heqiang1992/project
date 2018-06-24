@@ -31,31 +31,6 @@ class Book(models.Model):
     publication_date = models.DateField()
 
 
-class user(models.Model):
-
-    name = models.CharField(max_length=30)
-    level = models.CharField(max_length=60)
-    password = models.CharField(max_length=60)
-    website = models.URLField()
-    email = models.EmailField()
-
-
-    def __unicode__(self):
-        return self.name
-
-class case(models.Model):
-
-    caseName = models.CharField(max_length=100)
-    caseID = models.CharField(max_length=100)
-    # authors = models.ManyToManyField(Author)
-    creater = models.ForeignKey(user)
-    publication_date = models.DateField()
-
-class case_report(models.Model):
-    id_case_report = models.ForeignKey(case)
-    authors = models.ManyToManyField(user)
-    report = models.CharField(max_length=800)
-
 
 """
 @插入和更新数据

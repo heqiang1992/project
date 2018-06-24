@@ -19,17 +19,23 @@ from project.view import hello,time_ahead,current_datetime,thanks
 from django.contrib import admin
 from project import view
 admin.autodiscover()
-
-
+from UserSystem import view
+from django.views.generic.simple import direct_to_template
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url('^hello/$', hello),
-    url("^time/(\d{1,2})/$",time_ahead),
-    url("^currenttime/$",current_datetime),
-    url("^thanks/$",thanks),
-    url("^search_page/$",view.search_page),
-    url("^search/$",view.search),
-    url("^contact/$",view.contact),
+    # url('^hello/$', hello),
+    #     # url("^time/(\d{1,2})/$",time_ahead),
+    #     # url("^currenttime/$",current_datetime),
+    #     # url("^thanks/$",thanks),
+    #     # url("^search_page/$",view.search_page),
+    #     # url("^search/$",view.search),
+    #     # url("^contact/$",view.contact),
+    url(r"^about/$", direct_to_template, {                 #没有调用view(direct_to_template视图仅仅是直接从传递过来的额外参数获取信息并用于渲染视图。)
+        'template': 'about.html'
+    }),
+    #接受字符和数字:\w+
+    url(r"^about/(\w+)/$", view.about_pages),
+    url("^user_create/$",view.user_create)
 ]

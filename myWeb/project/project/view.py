@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from project.form import ContactForm
 
+
 def hello(request):
     Dtime=datetime.datetime.now()
     Dtime= Dtime.strftime('%b-%d-%Y %H:%M:%S')

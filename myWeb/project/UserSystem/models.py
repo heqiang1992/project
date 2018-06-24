@@ -96,10 +96,36 @@ Django的save()方法更新了不仅仅是name列的值，还有更新了所有�
 2                                                             
 #update()方法会返回一个整型数值，表示受影响的记录条数。
 
-删除对象
+@删除对象
 只需调用查询对象的delete()方法
 >>> p = Publisher.objects.get(name="O'Reilly")
 >>> p.delete()
 
 >>> Publisher.objects.filter(country='USA').delete()
+
+@访问外键(Foreign Key)值
+>>> b = case.objects.get(id=50)
+>>> b.user   
+<Publisher: Apress Publishing>
+>>> b.publisher.website
+u'http://www.apress.com/'
+在关系的另一端也能反向的追溯回来
+>>> p = user.objects.get(name='Apress Publishing')
+>>> p.case_set.all()
+[<Book: The Django Book>, <Book: Dive Into Python>, ...]
+case_set 只是一个 QuerySet
+
+@访问多对多值(Many-to-Many Values)
+多对多和外键工作方式相同，只不过我们处理的是QuerySet而不是模型实例
+>>> b = Book.objects.get(id=50)
+>>> b.authors.all()
+[<Author: Adrian Holovaty>, <Author: Jacob Kaplan-Moss>]
+>>> b.authors.filter(first_name='Adrian')
+[<Author: Adrian Holovaty>]
+>>> b.authors.filter(first_name='Adam')
+[]
+
+>>> a = Author.objects.get(first_name='Adrian', last_name='Holovaty')
+>>> a.book_set.all()
+[<Book: The Django Book>, <Book: Adrian's Other Book>]
 """
