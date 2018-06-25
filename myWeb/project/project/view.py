@@ -10,7 +10,9 @@ from apps import models
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from project.form import ContactForm
-
+from django.http import Http404
+from django.template import TemplateDoesNotExist
+# from django.views.generic.simple import direct_to_template
 
 def hello(request):
     Dtime=datetime.datetime.now()
@@ -139,3 +141,20 @@ def current_datetime(request):
     now = datetime.datetime.now()
     return render_to_response('current_datetime.html', {'current_date': now})
 """
+
+
+def user_create(request):
+
+    pass
+    # try:
+    #     return direct_to_template(request, template="about/%s.html" % page)
+    # except TemplateDoesNotExist:
+    #     raise Http404()
+
+
+def about_pages(request, page):
+    pass
+    # try:
+    #     return direct_to_template(request, template="about/%s.html" % page)
+    # except TemplateDoesNotExist:
+    #     raise Http404()
