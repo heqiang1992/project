@@ -11,8 +11,8 @@ class user(models.Model):
     name = models.CharField(max_length=30)
     level = models.CharField(max_length=60)
     password = models.CharField(max_length=60)
-    website = models.URLField()
-    email = models.EmailField()
+    website = models.URLField(blank=True)
+    email = models.EmailField(blank=True)
 
 
     def __unicode__(self):
@@ -24,7 +24,7 @@ class case(models.Model):
     caseID = models.CharField(max_length=100)
     # authors = models.ManyToManyField(Author)
     creater = models.ForeignKey(user)
-    publication_date = models.DateField()
+    publication_date = models.DateField(blank=True)
 
 class case_report(models.Model):
     id_case_report = models.ForeignKey(case)
@@ -129,3 +129,5 @@ case_set 只是一个 QuerySet
 >>> a.book_set.all()
 [<Book: The Django Book>, <Book: Adrian's Other Book>]
 """
+
+

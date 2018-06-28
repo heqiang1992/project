@@ -143,18 +143,3 @@ def current_datetime(request):
 """
 
 
-def user_create(request):
-
-    pass
-    # try:
-    #     return direct_to_template(request, template="about/%s.html" % page)
-    # except TemplateDoesNotExist:
-    #     raise Http404()
-
-
-def about_pages(request, page):
-    pass
-    # try:
-    #     return direct_to_template(request, template="about/%s.html" % page)
-    # except TemplateDoesNotExist:
-    #     raise Http404()

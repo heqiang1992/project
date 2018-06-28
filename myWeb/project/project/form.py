@@ -17,3 +17,19 @@ class ContactForm(forms.Form):
         if num_words < 4:
             raise forms.ValidationError("Not enough words!")
         return message
+
+
+class createUserForm(forms.Form):
+
+    Name = forms.CharField(max_length=15)
+    password = forms.CharField(max_length=15)
+    level = forms.CharField(max_length=15)
+    caseID = forms.CharField(max_length=15)
+    message = forms.CharField(widget=forms.Textarea)
+
+    # def clean_message(self):
+    #     #     message = self.cleaned_data['message']
+    #     #     num_words = len(message.split())
+    #     #     if num_words < 4:
+    #     #         raise forms.ValidationError("Not enough data!")
+    #     #     return message
