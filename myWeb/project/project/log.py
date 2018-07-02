@@ -14,3 +14,12 @@ class logger(object):
         m= "[ %s ] :"%str(time)+message
         self.__file_item.write(m)
         self.__file_item.close()
+
+
+def log_info(message):
+    filePath = os.path.join(os.path.dirname(__file__), 'log.log')
+    file_item = open(filePath, "a+")
+    time = datetime.datetime.now()
+    m = "[ %s ]	:"%str(time)+str(message)+"\n"
+    file_item.write(m)
+    file_item.close()

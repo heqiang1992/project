@@ -133,13 +133,33 @@ def contact(request):
     return render_to_response('contact_form.html', {'form': form})
 
 """
-可直接使用render_to_response简化整个流程
+@可直接使用render_to_response简化整个流程
 from django.shortcuts import render_to_response
 import datetime
 
 def current_datetime(request):
     now = datetime.datetime.now()
     return render_to_response('current_datetime.html', {'current_date': now})
+
+读取cookies
+request.COOKIES
+
+@写cookies 
+response=HttpResponse(html) 
+response.set_cookie("favorite_color"，request.GET["favorite_color"])
+
+
+@在视图中使用Session
+# Set a session value: 
+request.session["fav_color"] = "blue"
+# Get a session value -- this could be called in a diff erent view,
+# or many requests later (or both): 
+fav_color = request.session["fav_color"] 
+# Clear an item from the session:
+del request.session["fav_color"]
+# Check if the session has a given key: 
+if "fav_color" in request.session:
+
 """
 
 

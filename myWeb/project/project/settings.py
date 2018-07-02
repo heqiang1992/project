@@ -61,7 +61,10 @@ TEMPLATES = [
         # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
         # Always use forward slashes, even on Windows.
         # Don't forget to use absolute paths, not relative paths.
-        'DIRS': [os.path.join(os.path.dirname(__file__), 'template').replace('\\', '/'), os.path.join(os.path.dirname(__file__), 'template\\user_system').replace('\\','/')],
+        'DIRS': [os.path.join(os.path.dirname(__file__), 'template').replace('\\', '/'),
+                 os.path.join(os.path.dirname(__file__), 'template\\user_system').replace('\\','/'),
+                 os.path.join(os.path.dirname(__file__), 'template\\registration').replace('\\','/')
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

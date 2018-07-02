@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from log import log_info
 
 class ContactForm(forms.Form):
     #from类先校验传入数据，
@@ -20,16 +21,27 @@ class ContactForm(forms.Form):
 
 
 class createUserForm(forms.Form):
+    #表单中的每一个字段（域）作为Form类的属性，被展现成Field类
+    #input type=”text” 它应该被显示成<、、textarea、、>。我们可以通过设置* widget*来修改
+    try:
+        #变量名与传入表单名字相同。
+        Name = forms.CharField(widget=forms.Textarea,max_length = 15)
+        password = forms.CharField(widget=forms.Textarea,max_length = 15)
+        level = forms.CharField(max_length= 15)
+        caselD = forms.CharField(widget=forms.Textarea, max_length=15, required=False)
+        message = forms.CharField(widget=forms.Textarea, required=False, max一length=100)
+    except Exception as e:
+        log_info(e)
 
-    Name = forms.CharField(max_length=15)
-    password = forms.CharField(max_length=15)
-    level = forms.CharField(max_length=15)
-    caseID = forms.CharField(max_length=15)
-    message = forms.CharField(widget=forms.Textarea)
+class LoginForm(forms.Form):
+    username = forms.CharField(required=True,label=u"用户名",error_messages={ 'required': '请输入用户名'},
+                               widget=forms.TextInput(attrs = {'placeholder' :u"用户名",}),)
 
-    # def clean_message(self):
-    #     #     message = self.cleaned_data['message']
-    #     #     num_words = len(message.split())
-    #     #     if num_words < 4:
-    #     #         raise forms.ValidationError("Not enough data!")
-    #     #     return message
+
+    password = forms.CharField( required=True,label=u"密码",error_messages={'required': u'请输入密码'},
+                                widget=forms.PasswordInput(attrs={'placeholder' :u"密码",}),)
+    def clean(self):
+        if not self.is_valid():
+            raise forms.ValidationError(u"用户名和密码为必填项")
+        else:
+            cleaned_data = super(LoginForm,self).clean()

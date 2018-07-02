@@ -27,6 +27,10 @@ admin.autodiscover()
 # from UserSystem import view
 # from django.views.generic.simple import direct_to_template
 
+"""
+admin:heqiang password:heqiangl992
+"""
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -42,7 +46,7 @@ urlpatterns = [
     # }),
     #没有调用view(direct_to_template视图仅仅是直接从传递过来的额外参数获取信息并用于渲染视图。)
     #接受字符和数字:\w+
-    url(r"^about/(\w+)/$", user_system.about_pages),
-    url("^user_create/$",user_system.user_create)
+    url("^user_create/$",user_system.user_create),
+    url("^login/$",user_system.login)
 ]
 

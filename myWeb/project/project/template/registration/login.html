@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+
+{% if password一is一wrong %}
+<div class="alert alert-errortf">
+<button type="button" class="close" data-dismiss="alert">x</button>
+<h4>错误!</h4>用户名或密码错误
+</div>
+{% endif %}
+
+
+form action="" method="post"〉
+<label for="username" >User name:</label>
+<input type="text" name="username" value="" id="username">
+<label for="password" >Password:</label>
+<input type="password" name="password" value="" id="password">
+
+input type="submit" value="login" />
+input type="hidden" name="next" value="/search" />
+</form>
+
+{% endblock %}
+</body>
+</html>
