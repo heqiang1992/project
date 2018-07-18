@@ -28,8 +28,8 @@ class createUserForm(forms.Form):
         Name = forms.CharField(widget=forms.Textarea,max_length = 15)
         password = forms.CharField(widget=forms.Textarea,max_length = 15)
         level = forms.CharField(max_length= 15)
-        caselD = forms.CharField(widget=forms.Textarea, max_length=15, required=False)
-        message = forms.CharField(widget=forms.Textarea, required=False, max一length=100)
+        email = forms.CharField(widget=forms.Textarea, max_length=15,)
+        message = forms.CharField(widget=forms.Textarea, required=False, max_length=100)
     except Exception as e:
         log_info(e)
 

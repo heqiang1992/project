@@ -79,7 +79,7 @@ def search_page(request):
     return HttpResponse(html)
 
 def search(request):
-    error=False
+    error = False
     user_addr = request.META["REMOTE_ADDR"]
     if 'q' in request.GET:
 
@@ -161,5 +161,14 @@ del request.session["fav_color"]
 if "fav_color" in request.session:
 
 """
+def home(request):
+    now_time = datetime.datetime.now()
+    date = now_time.strftime('%Y-%m-%d %H:%M:%S')
 
+    t = loader.get_template("cute.html")
+    data = {"now_time": date}
+    if request.user.is_authenticated():
+        data["username"] = request.user.username
+        html = t.render(data)
+        return HttpResponse(html)
 

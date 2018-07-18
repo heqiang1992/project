@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if date %}
+    <b>now:{{ date }}</b>
+    {% endif %}
+
+    {% if username %}
+        <b>welcome，{{ username }}</b>
+    {% else %}
+        <a href="../login/">login</a>
+        <a href="../user_create/">sign</a>
+    {% endif %}
+
+</body>
+</html>
