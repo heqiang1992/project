@@ -6,13 +6,14 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import datetime
 import time
-from apps import models
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from project.form import ContactForm
 from django.http import Http404
 from django.template import TemplateDoesNotExist
 # from django.views.generic.simple import direct_to_template
+
+"""
 
 def hello(request):
     Dtime=datetime.datetime.now()
@@ -93,29 +94,29 @@ def search(request):
         return render_to_response('search_form.html', {'person_name':user_addr,'error':error})
 
 def contact(request):
-    """
-    errors = []
-    if request.method == 'POST':
-        if not request.POST.get('subject', ''):
-            errors.append('Enter a subject.')
-        if not request.POST.get('message', ''):
-            errors.append('Enter a message.')
-        if not request.POST.get('email') or '@' not in request.POST['email']:
-            errors.append('Enter a valid e-mail address.')
-        if not errors:
-            #可自己实现send
-            send_mail(
-                request.POST['subject'],
-                request.POST['message'],
-                request.POST.get('email', 'noreply@example.com'),
-                ['siteowner@example.com'],
-            )
-            #
-            return HttpResponseRedirect('/thanks/')
-    return render_to_response('contact_form.html',
-        {'errors': errors})
-    运用form类重写。
-    """
+
+    # errors = []
+    # if request.method == 'POST':
+    #     if not request.POST.get('subject', ''):
+    #         errors.append('Enter a subject.')
+    #     if not request.POST.get('message', ''):
+    #         errors.append('Enter a message.')
+    #     if not request.POST.get('email') or '@' not in request.POST['email']:
+    #         errors.append('Enter a valid e-mail address.')
+    #     if not errors:
+    #         #可自己实现send
+    #         send_mail(
+    #             request.POST['subject'],
+    #             request.POST['message'],
+    #             request.POST.get('email', 'noreply@example.com'),
+    #             ['siteowner@example.com'],
+    #         )
+    #         #
+    #         return HttpResponseRedirect('/thanks/')
+    # return render_to_response('contact_form.html',
+    #     {'errors': errors})
+    # 运用form类重写。
+
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -131,8 +132,8 @@ def contact(request):
     else:
         form = ContactForm(initial={'subject': 'I love your site!'})
     return render_to_response('contact_form.html', {'form': form})
+    
 
-"""
 @可直接使用render_to_response简化整个流程
 from django.shortcuts import render_to_response
 import datetime
@@ -161,6 +162,8 @@ del request.session["fav_color"]
 if "fav_color" in request.session:
 
 """
+
+
 def home(request):
     now_time = datetime.datetime.now()
     date = now_time.strftime('%Y-%m-%d %H:%M:%S')
@@ -169,6 +172,8 @@ def home(request):
     data = {"now_time": date}
     if request.user.is_authenticated():
         data["username"] = request.user.username
-        html = t.render(data)
-        return HttpResponse(html)
+    html = t.render(data)
+    return HttpResponse(html)
+
+
 

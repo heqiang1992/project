@@ -19,7 +19,6 @@ import sys
 # sys.path.append("..")
 from django.conf.urls import url
 from django.contrib import admin
-from project.view import hello,time_ahead,current_datetime,thanks
 from django.contrib import admin
 from project import view
 from project import user_system
@@ -48,6 +47,7 @@ urlpatterns = [
     #接受字符和数字:\w+
     url("^user_create/$", user_system.user_create),
     url("^login/$", user_system.login),
-    url("^cute/$",view.home)
+    url("^cute/$", view.home),
+    url("^logout/$", user_system.logout)
 ]
 

@@ -95,7 +95,18 @@ def login(request):
     #全局context处理器默认情况下，Django采用参数TEMPLA1 ~TEXT_PROCESSORS指定默认处理器，
     #意味着只要是调用的RequestContext，那么默认处理器中返回的     对象都就将存储在context中。
 
-def logout_view(request):
+def logout(request):
     auth.logout(request)
     # Redirect to a success page.
-    return HttpResponseRedirect("/account/loggedout/")
+    return HttpResponseRedirect("/cute/")
+
+
+def user_info(request):
+    data = {}
+    if request.user.is_authenticated():
+        data["username"] = request.user.username
+        t = loader.get_template("user_info.html")
+        html = t.render(data)
+        return HttpResponse(html)
+    else:
+        raise Http404("error")

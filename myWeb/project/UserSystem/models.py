@@ -26,10 +26,14 @@ class case(models.Model):
     creater = models.ForeignKey(user)
     publication_date = models.DateField(blank=True)
 
+
+
 class case_report(models.Model):
     id_case_report = models.ForeignKey(case)
     authors = models.ManyToManyField(user)
     report = models.CharField(max_length=800)
+
+
 """
 设置字段可选(选填)
 blank=True
