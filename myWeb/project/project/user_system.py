@@ -1,26 +1,29 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from django.template import Template, Context,loader
+from django.template import Template, Context, loader
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import datetime
-import time
 from UserSystem import models
-from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.template import TemplateDoesNotExist
-from UserSystem import models
-from project.form import createUserForm,LoginForm
+
+from project.form import createUserForm, LoginForm
 from django.contrib import auth
-from django.template.context import RequestContext
 from django.contrib.auth.models import User
+from Xml_Dir import XML
+from crypt import AESCrypt
+import os
+from template.user_system.qustions import question
 
 def user_create(request):
     if request.method == 'GET':
+        data = {}
         t = loader.get_template("create_user.html")
-        html = t.render({'person_name': ""})
+        data["ques"] = question().ques.values()
+        html = t.render(data)
         return HttpResponse(html)
     if request.method == 'POST':
         form = createUserForm(request.POST)
@@ -34,7 +37,6 @@ def user_create(request):
             raise Http404("错误的表单")
 
 
-
 def user_save(formDir):
     # 存入自己创的表，弃用
     db = models.user.objects
@@ -43,37 +45,36 @@ def user_save(formDir):
         raise Http404()
     else:
         res = models.user(name=formDir["name"],
-                    password=formDir["password"],
-                    level=formDir["level"]
-                    )
+                          password=formDir["password"],
+                          level=formDir["level"])
         res.save()
         return True
+
 
 def create_user(user_info):
     user = User.objects
     itemList = user.filter(username=user_info["Name"])
-    if len(itemList) != 0 :
+    if len(itemList) != 0:
         raise Http404("用户名重复")
     else:
         user.create_user(username=user_info["Name"],
                          email=user_info["email"],
-                         password=user_info["password"]
-                    )
+                         password=user_info["password"])
         user.is_staff = False
+
 
 def change_password():
     pass
 
 
-
 def user_demo(request):
-
     if request.user.is_authenticated():
         pass
         # Do something for authenticated users. pass
     else:
         pass
         # Do something for anonymous users• pass
+
 
 def login(request):
     if request.method == 'GET':
@@ -89,11 +90,12 @@ def login(request):
                 auth.login(request, user)
                 return HttpResponseRedirect("/cute/")
             else:
-                return render_to_response('login.html', {'password_is_wrong':True})
+                return render_to_response('login.html', {'password_is_wrong': True})
         else:
-            return render_to_response("login.html", {'password_is_wrong':True})
-    #全局context处理器默认情况下，Django采用参数TEMPLA1 ~TEXT_PROCESSORS指定默认处理器，
-    #意味着只要是调用的RequestContext，那么默认处理器中返回的     对象都就将存储在context中。
+            return render_to_response("login.html", {'password_is_wrong': True})
+    # 全局context处理器默认情况下，Django采用参数TEMPLA1 ~TEXT_PROCESSORS指定默认处理器，
+    # 意味着只要是调用的RequestContext，那么默认处理器中返回的     对象都就将存储在context中。
+
 
 def logout(request):
     auth.logout(request)

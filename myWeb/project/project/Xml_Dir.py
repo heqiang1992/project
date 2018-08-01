@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 __autthor__ = "heqiang"
 
-import xml
+import xml,os
 from xml.dom.minidom import parse
 import xml.dom.minidom
 
@@ -49,7 +49,8 @@ class XML(object):
 
 
 if (__name__ == "__main__"):
-    i = XML("")
+    i = XML(os.getcwd()+"\\template\user_system\question.xml")
+    print(i.dir)
 
 """
 生成dom对象
