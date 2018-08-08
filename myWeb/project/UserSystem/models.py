@@ -2,35 +2,35 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
 
-class user(models.Model):
-
-    name = models.CharField(max_length=30)
-    level = models.CharField(max_length=60)
-    password = models.CharField(max_length=60)
-    website = models.URLField(blank=True)
-    email = models.EmailField(blank=True)
-
+class user_info(models.Model):
+    user = models.ForeignKey(User,
+                             related_name='user_info_user',)
+    safe_question = models.CharField(max_length=60)
+    answer = models.CharField(max_length=60)
+    tel = models.CharField(max_length=20)
+    info = models.URLField(blank=True, max_length=100)
 
     def __unicode__(self):
         return self.name
 
-class case(models.Model):
 
+class case(models.Model):
     caseName = models.CharField(max_length=100)
     caseID = models.CharField(max_length=100)
     # authors = models.ManyToManyField(Author)
-    creater = models.ForeignKey(user)
+    # creater = models.ForeignKey(user)
     publication_date = models.DateField(blank=True)
-
 
 
 class case_report(models.Model):
     id_case_report = models.ForeignKey(case)
-    authors = models.ManyToManyField(user)
+    # authors = models.ManyToManyField(user)
     report = models.CharField(max_length=800)
 
 
@@ -133,5 +133,3 @@ case_set 只是一个 QuerySet
 >>> a.book_set.all()
 [<Book: The Django Book>, <Book: Adrian's Other Book>]
 """
-
-

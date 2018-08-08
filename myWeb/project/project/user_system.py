@@ -18,6 +18,7 @@ from crypt import AESCrypt
 import os
 from template.user_system.qustions import question
 
+
 def user_create(request):
     if request.method == 'GET':
         data = {}
@@ -53,6 +54,7 @@ def user_save(formDir):
 
 def create_user(user_info):
     user = User.objects
+
     itemList = user.filter(username=user_info["Name"])
     if len(itemList) != 0:
         raise Http404("用户名重复")
@@ -60,7 +62,19 @@ def create_user(user_info):
         user.create_user(username=user_info["Name"],
                          email=user_info["email"],
                          password=user_info["password"])
+        db = models.user_info(
+            user=user,
+            safe_question=user_info["safe_question"],
+            answer=user_info["answer"],
+            tel=user_info["tel"],
+            info=user_info["message"]
+        )
+        db.save()
         user.is_staff = False
+
+
+
+    c_user = models.user_info().objects.get(user__user_info_user=)
 
 
 def change_password():
