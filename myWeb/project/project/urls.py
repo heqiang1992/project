@@ -48,6 +48,7 @@ urlpatterns = [
     url("^user_create/$", user_system.user_create),
     url("^login/$", user_system.login),
     url("^cute/$", view.home),
-    url("^logout/$", user_system.logout)
+    url("^logout/$", user_system.logout),
+    url("^userInfo/$", user_system.user_info_query)
 ]
 

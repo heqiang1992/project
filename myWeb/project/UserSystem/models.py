@@ -10,11 +10,16 @@ from django.contrib.auth.models import User
 
 class user_info(models.Model):
     user = models.ForeignKey(User,
-                             related_name='user_info_user',)
+                             on_delete=models.CASCADE)
+    # CASCADE:这就是默认的选项，级联删除，你无需显性指定它。
+    # PROTECT: 保护模式，如果采用该选项，删除的时候，会抛出ProtectedError错误。
+    # SET_NULL: 置空模式，删除的时候，外键字段被设置为空，前提就是blank = True, null = True, 定义该字段的时候，允许为空。
+    # SET_DEFAULT: 置默认值，删除的时候，外键字段设置为默认值，所以定义外键的时候注意加上一个默认值。
+    # SET(): 自定义一个值，该值当然只能是对应的实体了
     safe_question = models.CharField(max_length=60)
     answer = models.CharField(max_length=60)
     tel = models.CharField(max_length=20)
-    info = models.URLField(blank=True, max_length=100)
+    info = models.CharField(blank=True, max_length=100)
 
     def __unicode__(self):
         return self.name
@@ -44,6 +49,7 @@ blank=True
 
 """
 @插入和更新数据
+  1 , models.objects.create()
 p = Publisher(name='Apress',
         address='2855 Telegraph Ave.',
         city='Berkeley',

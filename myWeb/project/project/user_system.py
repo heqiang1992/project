@@ -17,6 +17,14 @@ from Xml_Dir import XML
 from crypt import AESCrypt
 import os
 from template.user_system.qustions import question
+from log import log_info
+import traceback
+
+
+def delete_user(Name):
+    itemList = User.objects.filter(Name)
+    if len(itemList) > 0:
+        itemList.delete()
 
 
 def user_create(request):
@@ -54,40 +62,46 @@ def user_save(formDir):
 
 def create_user(user_info):
     user = User.objects
-
+    db = models.user_info.objects
     itemList = user.filter(username=user_info["Name"])
     if len(itemList) != 0:
         raise Http404("用户名重复")
     else:
-        user.create_user(username=user_info["Name"],
-                         email=user_info["email"],
-                         password=user_info["password"])
-        db = models.user_info(
-            user=user,
-            safe_question=user_info["safe_question"],
-            answer=user_info["answer"],
-            tel=user_info["tel"],
-            info=user_info["message"]
-        )
-        db.save()
-        user.is_staff = False
-
-
-
-    c_user = models.user_info().objects.get(user__user_info_user=)
+        try:
+            authItem = user.create_user(username=user_info["Name"],
+                                        email=user_info["email"],
+                                        password=user_info["password"])
+            user.is_staff = False
+            db.create(
+                user=authItem,
+                safe_question=user_info["safe_question"],
+                answer=user_info["answer"],
+                tel=user_info["tel"],
+                info=user_info["message"]
+            )
+            log_info(user_info["safe_question"].decode().encode("unicode"))
+        except Exception as e:
+            log_info(e, traceback.format_exc())
+            delete_user(user_info["Name"])
 
 
 def change_password():
     pass
 
 
-def user_demo(request):
+def user_info_query(request):
     if request.user.is_authenticated():
-        pass
-        # Do something for authenticated users. pass
+        data = {}
+        user = User.objects.get(username=request.user.username)
+        user_info = user.user_info_set.all()[0]
+        data["username"] = user.username
+        data["email"] = user.email
+        data["safe_question"] = user_info.safe_question
+        data["tel"] = user_info.tel
+        data["info"] = user_info.info
+        return render_to_response('user_information.html', data)
     else:
-        pass
-        # Do something for anonymous users• pass
+        raise Http404("请确认是否登陆。")
 
 
 def login(request):
