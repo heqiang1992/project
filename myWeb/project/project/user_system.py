@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 from django.template import Template, Context, loader
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
@@ -79,7 +84,7 @@ def create_user(user_info):
                 tel=user_info["tel"],
                 info=user_info["message"]
             )
-            log_info(user_info["safe_question"].decode().encode("unicode"))
+            log_info(user_info["safe_question"].decode("utf-8"))
         except Exception as e:
             log_info(e, traceback.format_exc())
             delete_user(user_info["Name"])
