@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,13 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'UserSystem',
+    'cute_db'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #防止跨站请求伪造
+    # 防止跨站请求伪造
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -61,8 +60,8 @@ TEMPLATES = [
         # Always use forward slashes, even on Windows.
         # Don't forget to use absolute paths, not relative paths.
         'DIRS': [os.path.join(os.path.dirname(__file__), 'template').replace('\\', '/'),
-                 os.path.join(os.path.dirname(__file__), 'template\\user_system').replace('\\','/'),
-                 os.path.join(os.path.dirname(__file__), 'template\\registration').replace('\\','/')
+                 os.path.join(os.path.dirname(__file__), 'template\\user_system').replace('\\', '/'),
+                 os.path.join(os.path.dirname(__file__), 'template\\registration').replace('\\', '/')
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -78,15 +77,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
 
+    },
+
+    'cute_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'cute_db.sqlite3')
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -97,8 +100,8 @@ DATABASES = {
     #     'PORT': '3306',
     # }
 }
-
-
+DATABASE_APPS_MAPPING = {"cute_db": "cute_db"}
+DATABASE_ROUTERS = ['project.DB_router.DatabaseAppsRouter']
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -117,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -130,7 +132,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

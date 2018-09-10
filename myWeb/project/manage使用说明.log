@@ -62,7 +62,7 @@ python manage.py makemigrations app1 app2
 5. migrate
 
 python manage.py migrate
-1
+1  manage.py  migrate  --database=db01
 使数据库状态与当前模型集和迁移集同步。说白了，就是将对数据库的更改，主要是数据表设计的更改，在数据库中真实执行。例如，新建、修改、删除数据表，新增、修改、删除某数据表内的字段等等。
 
 6. runserver

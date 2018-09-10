@@ -5,10 +5,38 @@
     <title>用户信息</title>
 </head>
 <body>
+<a href="../cute/">home</a>
+
+
+{% if change_info %}
+<form action="" method="post">
+    <div style="background-color:rgb(250,255,250);height:1200px;width:1200px;float:left;">
+        <div>
+            <b>电话</b>
+            <input type="text" name="tel" size="12" style="width:300px;height:20px;">
+            <p style="color:red;">{{form.tel.errors}}</p>
+        </div>
+
+        <div>
+            <b>用户信息</b>
+            <textarea name="info" style="width:590px;height:240px;resize:none">say hello</textarea>
+            <p style="color:red;">{{ form.tel.errors }}</p>
+        </div>
+
+        <input style="margin-left:30px;margin-bottom:20px" type="submit" value="提交">
+
+    </div>
+</form>
+{% else %}
+<div style="background-color:rgb(250,255,250);height:1200px;width:1200px;float:left;">
     <h> hello :{{ username }}</h>
     <p>你的邮箱：{{ email }}</p>
     <p>你的电话：{{ tel }}</p>
     <p>用户信息：{{ info }}</p>
     <p>你的安全问题：{{ safe_question }}</p>
+    <a href="../change_userInfo/">修改个人信息</a>
+    <a href="../change_passwd/">修改密码</a>
+</div>
+{% endif %}
 </body>
 </html>

@@ -1,17 +1,43 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from django.template import Template, Context,loader
+from django.template import Template, Context, loader
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import datetime
+from io import BytesIO
+from random_checkcode import Captcha
 import time
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from project.form import ContactForm
+from project.form_usersys import ContactForm
 from django.http import Http404
 from django.template import TemplateDoesNotExist
+
+
 # from django.views.generic.simple import direct_to_template
+
+
+def home(request):
+    now_time = datetime.datetime.now()
+    date = now_time.strftime('%Y-%m-%d %H:%M:%S')
+
+    t = loader.get_template("cute.html")
+    data = {"now_time": date}
+    if request.user.is_authenticated():
+        data["username"] = request.user.username
+    html = t.render(data)
+    return HttpResponse(html)
+
+
+def create_code_img(request):
+    f = BytesIO()  # 直接在内存开辟一点空间存放临时生成的图片
+
+    code, img = Captcha.gene_code()  # 调用check_code生成照片和验证码
+    request.session['check_code'] = code  # 将验证码存在服务器的session中，用于校验
+    img.save(f, 'PNG')  # 生成的图片放置于开辟的内存中
+    return HttpResponse(f.getvalue())  # 将内存的数据读取出来，并以HttpResponse返回
+
 
 """
 
@@ -132,7 +158,7 @@ def contact(request):
     else:
         form = ContactForm(initial={'subject': 'I love your site!'})
     return render_to_response('contact_form.html', {'form': form})
-    
+
 
 @可直接使用render_to_response简化整个流程
 from django.shortcuts import render_to_response
@@ -162,18 +188,3 @@ del request.session["fav_color"]
 if "fav_color" in request.session:
 
 """
-
-
-def home(request):
-    now_time = datetime.datetime.now()
-    date = now_time.strftime('%Y-%m-%d %H:%M:%S')
-
-    t = loader.get_template("cute.html")
-    data = {"now_time": date}
-    if request.user.is_authenticated():
-        data["username"] = request.user.username
-    html = t.render(data)
-    return HttpResponse(html)
-
-
-

@@ -2,29 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>修改密码</title>
 </head>
 <body>
-{% block content %}
+<a href="../cute/">home</a>
 
-{% if password_is_wrong %}
+
+{% if auth_error %}
 <div class="alert alert-errortf">
-<button type="button" class="close" data-dismiss="alert">x</button>
-<h4>错误!</h4>用户名或密码错误
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <h4 style="color:red;size:12">{{ auth_error }}</h4>
 </div>
 {% endif %}
 
 
 <form action="" method="post">
-<label for="username" >User name:</label>
-<input type="text" name="username" value="" id="username">
-<label for="password" >Password:</label>
-<input type="password" name="password" value="" id="password">
+    <label for="username">User name:</label>
+    <input type="text" name="username" value="" id="username">
+    <label for="password">Password:</label>
+    <input type="password" name="password" value="" id="password">
 
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="/search" />
+    <input type="submit" value="login"/>
+    <input type="submit" name="next" value="forgetpasswd"/>
+    <br>
+    <input type="button" value="看不清">
+    <input type="text" name="verifycode" value="" id="verifycode_str">
+    <img id="check_code_img" src="/create_code_img/" onclick="refresh_check_code(this)">
+
+    {% if verify_error %}
+    <div>
+
+        <h4 style="color:red;size:12">{{ verify_error }}</h4>
+    </div>
+    {% endif %}
 </form>
 
-{% endblock %}
+
 </body>
+
+<script>
+  function refresh_check_code(ths) {
+    ths.src += '?';
+{#    src后面加问好会自动刷新验证码img的src#}
+  }
+
+</script>
 </html>

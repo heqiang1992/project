@@ -5,18 +5,35 @@
     <title>Title</title>
 </head>
 <body>
-    {% if date %}
-    <b>now:{{ date }}</b>
-    {% endif %}
+<div id="container" style="width:500px;float:left;width:1200px;">
+    <div id="header" style="background-color:rgb(240,255,240);height:50px;width:1200px;float:left;">
+        {% if date %}
+        <b>now:{{ date }}</b>
+        {% endif %}
 
-    {% if username %}
+        {% if username %}
         <b>welcome，{{ username }}</b>
         <a href="../userInfo/">个人信息</a>
         <a href="../logout/">logout</a>
-    {% else %}
+        {% else %}
         <a href="../login/">login</a>
         <a href="../user_create/">sign</a>
-    {% endif %}
+        {% endif %}
+    </div>
+    <div id="menu" style="background-color:rgb(240,200,240);height:800px;width:150px;float:left;">
+        <b>菜单</b><br>
+        tag1<br>
+        tag2<br>
+        tag3<br>
+    </div>
+    <div id="content" style="background-color:rgb(240,255,200);height:800px;width:1050px;float:left;">
+        内容在这里
+    </div>
+    <div id="footer" style="background-color:rgb(240,255,300);clear:both;text-align:center">
+        版权@martinHE
+    </div>
+</div>
+
 
 </body>
 </html>
