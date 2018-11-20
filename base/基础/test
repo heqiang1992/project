@@ -1,0 +1,28 @@
+x = -100
+print(x)
+y = 300
+a = x | y
+print(a)
+a = x ^ y
+print(a)
+a = x << 3
+print(a)
+a = x >> 2
+print(a)
+print(~x)
+y = 10;x = 20
+print(x or y)
+print(x and y)
+print(not x)
+z = "abcdefghi"
+a = "abc"
+if a not in z:
+    print('success')
+else:
+    print("failed")
+
+b = "abf"
+if ( b in z ):
+    print('success')
+else:
+    print("failed")
