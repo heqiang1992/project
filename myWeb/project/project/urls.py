@@ -22,7 +22,8 @@ from django.contrib import admin
 from django.contrib import admin
 from project import view
 from project import user_system
-
+from project import settings
+from django.views.static import serve
 admin.autodiscover()
 # from UserSystem import view
 # from django.views.generic.simple import direct_to_template
@@ -52,6 +53,7 @@ urlpatterns = [
     url("^userInfo/$", user_system.user_info_query),
     url("^change_userInfo/$", user_system.user_info_change),
     url("^change_passwd/$", user_system.change_password),
-    url("^create_code_img/$", view.create_code_img)
+    url("^create_code_img/$", view.create_code_img),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATICFILES_DIRS})
 ]
 
