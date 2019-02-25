@@ -136,12 +136,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+
+# django static文件夹下面的内容方法不了 出现404 500错误
+# 需要查看自己的settings文件确保有一下内容
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 STATICFILES_DIRS = (
     ('css', os.path.join(STATIC_ROOT, 'css')),
+    ('js', os.path.join(STATIC_ROOT, 'js')),
     ('img', os.path.join(STATIC_ROOT, 'img')),
-    ('js', os.path.join(STATIC_ROOT, 'js'))
-    # ('fonts', os.path.join(STATIC_ROOT, 'fonts')),
-    # ('plug', os.path.join(STATIC_ROOT, 'plug')),
+    ('upload', os.path.join(STATIC_ROOT, 'upload')),
+)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'staticFiles').replace("\\", "/"),
+# )
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )

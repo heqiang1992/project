@@ -8,3 +8,4 @@ import datetime
 
 TIMESTAMP = str(int(time.time()))
 FILEPATH = os.path.join(os.getcwd(), TIMESTAMP+".html")
+PNGPATH = os.path.join(os.getcwd(), TIMESTAMP+".png")

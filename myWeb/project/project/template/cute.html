@@ -28,7 +28,9 @@
     </div>
     <div id="content" style="background-color:rgb(240,255,200);height:800px;width:1050px;float:left;">
         <!--<link rel="stylesheet" href="/static/css/test001.css" />-->
-        <img src="/static/test.jpg" alt=""/>
+        <img src="/static/img/test.jpg" alt="" width="580" height="380"/>
+        {% load static %}
+        <img src="{% static '/static/img/test002.jpg' %}" alt="My image"/>
     </div>
     <div id="footer" style="background-color:rgb(240,255,300);clear:both;text-align:center">
         版权@martinHE

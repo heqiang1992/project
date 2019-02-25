@@ -5,6 +5,11 @@ from requests import request
 import SC_Data
 import os
 
+"""
+18230036107
+569247yq
+"""
+
 class sinaBase():
 
     def __init__(self):
@@ -16,7 +21,7 @@ class sinaBase():
 
     def get_homepage(self):
         get_data = {}
-        res = request("get", "https://m.weibo.cn/")
+        res = request("get", "https://weibo.com/?category=0")
         print res.status_code
         self.generate_html_file(res.content)
         return res
