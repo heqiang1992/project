@@ -14,6 +14,7 @@ import time
 from PIL import Image
 import pytesseract
 
+
 class LoginBase(object):
 
     def __init__(self):

@@ -6,6 +6,9 @@ import os
 import time
 import datetime
 
-TIMESTAMP = str(int(time.time()))
-FILEPATH = os.path.join(os.getcwd(), TIMESTAMP+".html")
-PNGPATH = os.path.join(os.getcwd(), TIMESTAMP+".png")
+# 时间戳生成文件名
+TIMESTAMP = datetime.datetime.fromtimestamp(time.time())
+DATE = datetime.datetime.strftime(TIMESTAMP, "%Y%m%d%H%M%S")
+DATE = str(DATE).replace(" ", "_")
+FILEPATH = os.path.join(os.getcwd(), DATE + ".html")
+PNGPATH = os.path.join(os.getcwd(), DATE + ".png")
