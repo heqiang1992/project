@@ -1,6 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+"""
+1-33：单 17 双 16
+1-16：单 8  双 8
+总出现次数：<5  25
+<10  20
+<15  15
+<20  10
+>20  5
+平均遗漏值最小的5个数 + 2%
+最大遗漏值最大的5个数 + 1%
+近5期每期遗漏值最大 + 2%
+最大连出值最小的5个 + 1%
+近30期出现最少于2次+ 2%
+"""
 
 import random
 import requests
@@ -12,7 +25,7 @@ from bs4 import BeautifulSoup
 class HistoryDC(object):
 
     def __init__(self):
-        print "double color start..."
+        print("double color start...")
         con = self.WebConnection()
         self.BS_Parser(con)
         self.this_issue = self.get_issue()
@@ -68,7 +81,7 @@ class HistoryDC(object):
             bingo_num = []
             key = None
             for td in tr:
-                if isinstance(td, unicode):
+                if isinstance(td, str):
                     continue
                 elif td.has_attr("class"):
                     if td["class"] != ["yl01"] and td["class"] != ["yl02"]:
@@ -83,18 +96,18 @@ class HistoryDC(object):
                 self.history_bingo[key] = bingo_num
 
         statistic_demo = list(soup.body.find("table", attrs={"id": "chartsTable"}).children)
-        name_list = {'\xb3\xf6\xcf\xd6\xd7\xdc\xb4\xce\xca\xfd': 'total_appear',
-                     '\xc6\xbd\xbe\xf9\xd2\xc5\xc2\xa9\xd6\xb5': 'average_miss',
-                     '\xd7\xee\xb4\xf3\xc1\xac\xb3\xf6\xd6\xb5': 'max_continue',
-                     '\xd7\xee\xb4\xf3\xd2\xc5\xc2\xa9\xd6\xb5': 'max_miss'}
+        name_list = {b'\xb3\xf6\xcf\xd6\xd7\xdc\xb4\xce\xca\xfd': 'total_appear',
+                     b'\xc6\xbd\xbe\xf9\xd2\xc5\xc2\xa9\xd6\xb5': 'average_miss',
+                     b'\xd7\xee\xb4\xf3\xc1\xac\xb3\xf6\xd6\xb5': 'max_continue',
+                     b'\xd7\xee\xb4\xf3\xd2\xc5\xc2\xa9\xd6\xb5': 'max_miss'}
         for tr in statistic_demo:
             # 获取统计数
-            if isinstance(tr, unicode) or tr.has_attr("id") or tr.has_attr("colspan"):
+            if isinstance(tr, str) or tr.has_attr("id") or tr.has_attr("colspan"):
                 continue
             else:
                 pail = []
                 for td in tr.children:
-                    if isinstance(td, unicode):
+                    if isinstance(td, str):
                         continue
                     elif td.has_attr("align") and not td.has_attr("bgcolor"):
                         unic = td.text.replace(u"\xa0", u"")
@@ -109,22 +122,22 @@ class HistoryDC(object):
         return True
 
     def generate_pool(self):
-        print "start compute"
+        print("start compute")
         self.red_pool = []
         self.blue_pool = []
         # 根据出现次数添加球数
         for index, values in enumerate(self.history_statistic["total_appear"][:33]):
             index = index + 1
             if int(values) > 20:
-                self.red_pool.extend([index for x in xrange(5)])
+                self.red_pool.extend([index for x in range(5)])
             else:
-                self.red_pool.extend([index for x in xrange(30 - int(values))])
+                self.red_pool.extend([index for x in range(30 - int(values))])
         for index, values in enumerate(self.history_statistic["total_appear"][33:]):
             index = index + 1
             if int(values) > 20:
-                self.blue_pool.extend([index for x in xrange(5)])
+                self.blue_pool.extend([index for x in range(5)])
             else:
-                self.blue_pool.extend([index for x in xrange(30 - int(values))])
+                self.blue_pool.extend([index for x in range(30 - int(values))])
 
         # 平均遗漏值最小的5个数 + 2
         red_average_miss = [(index, values) for index, values in
@@ -137,7 +150,7 @@ class HistoryDC(object):
         red_average_miss.sort(key=takeSecond, reverse=False)
         for i in red_average_miss[:5]:
             index = i[0] + 1
-            self.red_pool.extend([index for x in xrange(2)])
+            self.red_pool.extend([index for x in range(2)])
 
         blue_average_miss = [(index, values) for index, values in
                              enumerate(self.history_statistic["average_miss"][33:])]
@@ -145,7 +158,7 @@ class HistoryDC(object):
         blue_average_miss.sort(key=takeSecond, reverse=False)
         for i in blue_average_miss[:5]:
             index = i[0] + 1
-            self.blue_pool.extend([index for x in xrange(2)])
+            self.blue_pool.extend([index for x in range(2)])
 
         # 最大遗漏值的5个数+1
         red_max_miss = [(index, values) for index, values in
@@ -171,8 +184,8 @@ class HistoryDC(object):
         return self.red_pool, self.blue_pool
 
     def compute(self, times=1):
-        print "本期期号：%s. 推荐买：" % self.this_issue
-        for i in xrange(times):
+        print("本期期号：%s. 推荐买：" % self.this_issue)
+        for i in range(times):
             bingo_list = []
             while len(bingo_list) < 6:
                 ball = random.choice(self.red_pool)
@@ -184,7 +197,7 @@ class HistoryDC(object):
             bingo_str = ""
             for num in bingo_list:
                 bingo_str += str(num) + "   "
-            print bingo_str
+            print(bingo_str)
 
         return True
 

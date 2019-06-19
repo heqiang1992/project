@@ -56,8 +56,8 @@ class Captcha(object):
     @classmethod
     def __gene_points(cls, draw, point_chance, width, height):
         chance = min(100, max(0, int(point_chance)))  # 大小限制在[0, 100]
-        for w in xrange(width):
-            for h in xrange(height):
+        for w in range(width):
+            for h in range(height):
                 tmp = random.randint(0, 100)
                 if tmp > 100 - chance:
                     draw.point((w, h), fill=(0, 0, 0))
@@ -76,7 +76,7 @@ class Captcha(object):
         # 如果需要绘制干扰线
         if cls.draw_line:
             # 遍历line_number次,就是画line_number根线条
-            for x in xrange(0, cls.line_number):
+            for x in range(0, cls.line_number):
                 cls.__gene_line(draw, width, height)
             # 如果需要绘制噪点
         if cls.draw_point:

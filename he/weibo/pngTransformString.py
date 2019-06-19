@@ -3,6 +3,7 @@
 
 import pytesseract
 from PIL import Image, ImageOps, ImageDraw
+from aip import AipOcr
 
 
 class OCR_Base():
@@ -22,11 +23,11 @@ class OCR_Base():
                     lut.append(0)
             return lut
 
-        im = Image.open("E:\code\pj\he\weibo\\1546767358.png")
-        draw = ImageDraw.ImageDraw(im)
-        for y in xrange(im.size[1]):
+        im = Image.open("D:\code\pj\he\weibo\\20190612143603.png")
+        draw = ImageDraw.ImageDraw(im)  # 生成画笔
+        for y in range(im.size[1]):
             if y in [200, 201, 202, 203, 204, 205]:
-                for x in xrange(im.size[0]):
+                for x in range(im.size[0]):
                     draw.point((x, y), (210, 210, 210))
         # 获取，更改某个像素位置的值
         # im.getpixel((100, 100))
@@ -39,8 +40,7 @@ class OCR_Base():
         # 根据定义的LUT将灰度图转化为黑白图片
         binaryImage = im.point(initTable(), '1')
         # im.save("E:\code\pj\he\weibo\\1546767358_test.png")
-        binaryImage.save("E:\code\pj\he\weibo\\1546767358_test.png")
-
+        binaryImage.save("D:\code\pj\he\weibo\\20190612143603_test.png")
 
         # im1 = binaryImage.convert('L')
         # im2 = ImageOps.invert(im1)
@@ -55,10 +55,26 @@ class OCR_Base():
         # print asd
         # print (out.show())
 
-        aa = pytesseract.image_to_string(binaryImage)
-        print aa
 
+    def baidu_ocr(self, file=None, path=None):
+
+        APP_ID = '16515068'
+        API_KEY = 'aMLSnbnrLL7IzVWGKn4WpCI1'
+        SECRET_KEY = '8KsiOx7oanbiX7muBDwlVckVPW5UkzqT'
+        # 初始化AipFace对象
+        aipOcr = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+        if file:
+            pass
+        elif path:
+            with open(path, 'rb') as fp:
+                options = {
+                    'detect_direction': 'true',
+                    'language_type': 'CHN_ENG',
+                }
+                result = aipOcr.basicGeneral(fp.read(), options)
+                print(result)
 
 if __name__ == "__main__":
     i = OCR_Base()
     i.parse_png()
+    i.baidu_ocr(path="D:\code\pj\he\weibo\\20190612143603_test.png")

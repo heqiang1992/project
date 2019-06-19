@@ -14,15 +14,19 @@ def test_func1():
 
 
 def test_func2():
-    assert func(3) == 5  # 失败示例
+    assert func(3) == 5, "num is %s" % str(func(3))  # 失败示例
+
 
 def test_func3():
-    assert True
+    assert True, "hello "
+
+
+def test_func4():
+    raise Exception("******")
 
 
 if __name__ == "__main__":
-    pytest.main(["--html=report.html","D:\\code\\pj\\he\\"])
-
+    pytest.main(["--html=report.html", "D:\\code\\pj\\he\\"])
 
 # pytest.main()  # 遍历相同目录下的所以test开头的用例
 # pytest.main("-q test_main.py")  # 指定测试文件

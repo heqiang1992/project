@@ -36,7 +36,15 @@ class XML(object):
                 node["data"] = i.data
                 node["attribute"] = attrib
                 self.__counter = 0
-                self.dir[i.parentNode.tagName] = node
+                # 在这一步解决重名问题
+                if self.dir.has_key(i.parentNode.tagName):
+                    if isinstance(self.dir[i.parentNode.tagName], list):
+                        self.dir[i.parentNode.tagName].append(node)
+                    else:
+                        values_ex = [self.dir[i.parentNode.tagName], node]
+                        self.dir[i.parentNode.tagName] = values_ex
+                else:
+                    self.dir[i.parentNode.tagName] = node
             else:
                 pass
 

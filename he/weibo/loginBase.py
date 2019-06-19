@@ -18,7 +18,8 @@ import pytesseract
 class LoginBase(object):
 
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
         self.driver.implicitly_wait(30)
         self.base_url = "https://weibo.com/"
 

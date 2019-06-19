@@ -1,9 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # f = open('d:\\a.txt',"a+")
 # f.write("test aaa")
 # f.seek(0,0)
 # print(f.read())
 
-# f = open('d:\\a.txt',"a+")
+f1 = open('d:\\a.txt',"a+")
+f2 = open('d:\\b.txt',"a+")
+for l in f1.readlines():
+    h = l[1:].replace("/","_").upper()
+    s = h+"=\"%s\""%l
+    s = s.replace("\n","")
+    f2.write(s+"\n")
 # f.write("test aaa\n")
 # # print(f.tell())
 # # f.seek(0,0)
@@ -117,14 +126,14 @@
 #将文件record.txt中的数据进行分割并按照以下规律保存：
 #小甲鱼的会话保存到boy_*.txt
 #小客服的会话保存到girl_*.txt
-file = open("d:\\record.txt","r")
-boy = open("d:\\boy.txt","a+")
-girl = open("d:\\girl.txt","a+")
-for line in file.readlines():
-    if "小甲鱼" in line:
-        boy.write(line)
-    elif "小客服" in line:
-        girl.write(line)
-file.close()
-boy.close()
-girl.close()
+# file = open("d:\\record.txt","r")
+# boy = open("d:\\boy.txt","a+")
+# girl = open("d:\\girl.txt","a+")
+# for line in file.readlines():
+#     if "小甲鱼" in line:
+#         boy.write(line)
+#     elif "小客服" in line:
+#         girl.write(line)
+# file.close()
+# boy.close()
+# girl.close()
