@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import datetime
 from io import BytesIO
-from random_checkcode import Captcha
+from .random_checkcode import Captcha
 import time
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
@@ -24,7 +24,7 @@ def home(request):
 
     t = loader.get_template("cute.html")
     data = {"now_time": date}
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         data["username"] = request.user.username
     html = t.render(data)
     return HttpResponse(html)
@@ -35,7 +35,7 @@ def create_code_img(request):
 
     code, img = Captcha.gene_code()  # 调用check_code生成照片和验证码
     request.session['check_code'] = code  # 将验证码存在服务器的session中，用于校验
-    img.save(f, 'PNG')  # 生成的图片放置于开辟的内存中
+    img.save(f, 'png')  # 生成的图片放置于开辟的内存中
     return HttpResponse(f.getvalue())  # 将内存的数据读取出来，并以HttpResponse返回
 
 

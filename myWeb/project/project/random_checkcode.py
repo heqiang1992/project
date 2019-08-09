@@ -37,7 +37,7 @@ class Captcha(object):
     # 用来随机生成一个字符串(包括英文和数字)
     @classmethod
     def __gene_text(cls):
-        source = list(string.letters)
+        source = list(string.ascii_letters)
         for index in range(0, 10):
             source.append(str(index))
         # 随机获取几位数字拼接

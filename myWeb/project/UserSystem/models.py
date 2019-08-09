@@ -34,7 +34,7 @@ class case(models.Model):
 
 
 class case_report(models.Model):
-    id_case_report = models.ForeignKey(case)
+    id_case_report = models.ForeignKey(case,on_delete=models.CASCADE)
     # authors = models.ManyToManyField(user)
     report = models.CharField(max_length=800)
 

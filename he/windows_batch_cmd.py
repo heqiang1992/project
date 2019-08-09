@@ -11,9 +11,10 @@ STAF = "STAF hostIP PROCESS START SHELL COMMAND \"cmd\" SAMECONSOLE RETURNSTDOUT
 cmd1 = "iozone -a -i 0 -Rb c:\\file\h.xls -f c:\\file\\testfile.txt -q 512K -s 10G -w"
 cmd2 = "iozone -a -i 1 -Rb c:\\file\h.xls -f c:\\file\\testfile.txt -q 512K -s 10G -w"
 d_cmd = "STAF hostIP fs DELETE ENTRY c:\\file\\hhh CONFIRM"
-d_cmd2 = "STAF hostIP fs DELETE ENTRY c:\\STAF\\mytest.3.0 CONFIRM"
+d_cmd2 = "STAF hostIP fs DELETE ENTRY c:\\STAF\\mytest.0.0 CONFIRM"
 l_cmd = "STAF hostIP fs LIST DIRECTORY c:\\file\\"
-fio = "fio --aux-path=c:\\test\ --iodepth 128 --thread --rw=read --bs=4k --numjobs=4 --runtime=300 --size=6G --group_reporting --name=mytest --output=c:\\file\\hhh.txt --direct=1"
+fio = "fio -filename=c:\\file\\windows_batch_cmd.py --iodepth=4 --thread --rw=randread --bs=4K --numjobs=4 --runtime=300 --size=10G --group_reporting --name=mytest --output=c:\\file\\hhh.txt --direct=1"
+d_cmd3 = "STAF hostIP fs DELETE ENTRY c:\\Users\\demo\mytest.8.0 CONFIRM"
 
 
 def test_connection():
@@ -74,7 +75,7 @@ def get_file():
 def delete_file():
     for i in range(ip_range[0], ip_range[1]):
         ip = ip_24 + str(i)
-        b = d_cmd2.replace("hostIP", ip)
+        b = d_cmd.replace("hostIP", ip)
         # p = os.popen(b)
         c = b.replace("hhh", "%s.txt"%str(i))
         print(c)

@@ -3,10 +3,10 @@
 
 import pythoncom
 import pyHook
-import win32api
-from Macro import macro
+from win32 import win32api
+from .Macro import macro
 from threading import Thread
-from keysConfig import keysConfig
+from .keysConfig import keysConfig
 
 
 class e_hook(macro, Thread):
@@ -17,15 +17,15 @@ class e_hook(macro, Thread):
 
     def __OnMouseEvent(self, event):
         # called when a mouse event are received
-        print "name", event.MessageName
-        print "message", event.Message
-        print "time", event.Time
-        print "window", event.Window
-        print "windowName", event.WindowName
-        print "position", event.position
-        print "wheel", event.Wheel
-        print "inject", event.injected
-        print "--------"
+        print("name", event.MessageName)
+        print ("message", event.Message)
+        print ("time", event.Time)
+        print ("window", event.Window)
+        print ("windowName", event.WindowName)
+        print ("position", event.position)
+        print ("wheel", event.Wheel)
+        print ("inject", event.injected)
+        print ("--------")
 
         return True
 
@@ -33,14 +33,14 @@ class e_hook(macro, Thread):
         if event.Key in self.keyMap.keys():
             self.key_board(typelist=self.keyMap[event.Key]["typeKey"],
                            durationlist=self.keyMap[event.Key]["interval"])
-        print "name", event.MessageName
-        print "message", event.Message
-        print "time", event.Time
-        print "Ascii8", event.Ascii, chr(event.Ascii)
-        print "Key", event.eventKey
-        print "keyID", event.KeyID
-        print "Transition", event.Transition
-        print "-------"
+        print ("name", event.MessageName)
+        print ("message", event.Message)
+        print ("time", event.Time)
+        print ("Ascii8", event.Ascii, chr(event.Ascii))
+        print ("Key", event.eventKey)
+        print ("keyID", event.KeyID)
+        print ("Transition", event.Transition)
+        print ("-------")
 
         if event.Key == "F12":
             self.stop_L()

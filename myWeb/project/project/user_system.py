@@ -4,8 +4,6 @@
 
 import sys
 
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 from django.template import Template, Context, loader
 from django.shortcuts import render_to_response
@@ -19,10 +17,10 @@ from django.template import TemplateDoesNotExist
 from project.form_usersys import createUserForm, LoginForm, change_password_form, change_userinfo_form
 from django.contrib import auth
 from django.contrib.auth.models import User
-from random_checkcode import Captcha
-from crypt import AESCrypt
-from template.user_system.qustions import question
-from log import log_info
+from .random_checkcode import Captcha
+from Crypto.Cipher import AES
+from .template.user_system.qustions import question
+from .log import log_info
 import traceback
 
 

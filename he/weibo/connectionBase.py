@@ -22,7 +22,7 @@ class sinaBase():
     def get_homepage(self):
         get_data = {}
         res = request("get", "https://weibo.com/?category=0")
-        print res.status_code
+        print(res.status_code)
         self.generate_html_file(res.content)
         return res
 

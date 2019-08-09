@@ -8,7 +8,7 @@ from django.contrib import admin
 admin：heqiang
 password:heqiang1992
 """
-from models import user_info, case, case_report
+from .models import user_info, case, case_report
 
 
 class AuthorAdmin(admin.ModelAdmin):

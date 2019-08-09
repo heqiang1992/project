@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from log import log_info
+from .log import log_info
 from django.contrib.auth.models import User
 
 
