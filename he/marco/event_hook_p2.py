@@ -8,6 +8,7 @@ from .Macro import macro
 from threading import Thread
 from .keysConfig import keysConfig
 
+#废弃
 
 class e_hook(macro, Thread):
     def __init__(self, keyMap):

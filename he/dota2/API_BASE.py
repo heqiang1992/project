@@ -5,14 +5,19 @@
 import requests
 import os
 
+#接口文档 https://docs.opendota.com/#section/Authentication
+
 class PerfectWorld():
 
     def __init__(self):
-        self.url = "https://www.dota2.com.cn/heroes/index.htm"
+        self.url = "https://api.opendota.com/api/"
 
-
+    def get_heroes_list(self):
+        url = self.url + "heroes"
+        con = requests.get(url=url, verify=False)
+        print(con.content.encode)
     def hero(self):
-        url = "https://www.dota2.com.cn/heroes/index.htm"
+        url = self.url+"heroes"
         con=requests.get(url=url,verify=False)
         path = os.getcwd()
         f = open(os.path.join(path,"test.html"),mode="a+")
@@ -22,4 +27,5 @@ class PerfectWorld():
 
 
 if __name__ == "__main__":
-    PerfectWorld().hero()
+    a = PerfectWorld()
+    a.get_heroes_list()

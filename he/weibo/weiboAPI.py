@@ -52,10 +52,10 @@ class WaterRobot():
             input()
 
         driver.find_element_by_xpath("//*[@id=\"outer\"]/div/div[2]/form/div/div[2]/div/p/a[1]").click()
-        time.sleep(3)
+        time.sleep(1)
         try:
             driver.find_element_by_xpath("//*[@id=\"outer\"]/div/div[2]/form/div/div[2]/div/p/a[1]").click()
-            time.sleep(3)
+            time.sleep(1)
         except:
             pass
         code = driver.current_url.split("code=")[-1]
@@ -63,10 +63,10 @@ class WaterRobot():
         print(code)
         r = client.request_access_token(code)
         print(r)
-        access_token = r.access_token  # 新浪（授权服务器）返回的token
+        self.access_token = r.access_token  # 新浪（授权服务器）返回的token
         expires_in = r.expires_in
 
-        client.set_access_token(access_token, expires_in)
+        client.set_access_token(self.access_token, expires_in)
         self.client = client
         driver.close()
 
@@ -91,10 +91,11 @@ class WaterRobot():
         return res
 
     def user_timeline(self):
-        c = HttpObject(client=self.client, method=0)
-        res = c.statuses__user_timeline()
-        print(res)
-        return res
+        data = {"access_token":self.access_token}
+        con = self.client.get(url="https://api.weibo.com/2/statuses/user_timeline.json",data=json.dumps(data))
+        # res = c.statuses__user_timeline()
+        print(con)
+        # return res
 
     def users_show(self, uid):
         c = HttpObject(client=self.client, method=0)
@@ -117,7 +118,7 @@ class WaterRobot():
 
 c1 = WaterRobot()
 c1.authorization(**weiboAPP[0])
-id = c1.get_statuses_id()
-c2 = WaterRobot()
-c2.authorization(**weiboAPP[1])
-c2.comments_create(comment="nihao",id=id)
+id = c1.user_timeline()
+# c2 = WaterRobot()
+# c2.authorization(**weiboAPP[1])
+# c2.comments_create(comment="nihao",id=id)

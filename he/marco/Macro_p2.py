@@ -4,6 +4,7 @@
 import pyautogui
 import time
 
+#废弃
 
 class macro(object):
     def __init__(self):
