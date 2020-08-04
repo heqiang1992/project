@@ -160,7 +160,7 @@ def yes_time():
     yes_time = now_time + datetime.timedelta(days=-1)
     #格式化输出
     yes_time_str = yes_time.strftime('%Y-%m-%d %H:%M:%S')
-    print yes_time_str  # 2017-11-01 22:56:02
+    print(yes_time_str)  # 2017-11-01 22:56:02
 
 def dif_time():
     #计算两个时间之间差值
@@ -172,6 +172,8 @@ def dif_time():
     day = (d2 - d1).days
     #间隔秒数
     second = (d2 - d1).seconds
+
+
     print day   #17
     print second  #13475  注意这样计算出的秒数只有小时之后的计算额 也就是不包含天之间差数
 

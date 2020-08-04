@@ -1,13 +1,13 @@
-# import threading
-# import time
-# def print_info(name,delay):
-#     for i in range(5):
-#         print("I am",name)
-#         time.sleep(delay)
-# t1 = threading.Thread(target=print_info,args=("treading1",2))
-# t2 = threading.Thread(target=print_info,args=("同时进行的treading2",3))
-# t1.start()
-# t2.start()
+import threading
+import time
+def print_info(name,delay):
+    for i in range(5):
+        print("I am",name)
+        time.sleep(delay)
+t1 = threading.Thread(target=print_info,args=("treading1",2))
+t2 = threading.Thread(target=print_info,args=("同时进行的treading2",3))
+t1.start()
+t2.start()
 # 1.打开一个文件，对一个文件循环写入1000次，每次1条数据，统计所用时间。
 # import threading
 # class deal_file:

@@ -77,10 +77,12 @@ class Connection(object):
         p = "".join(info)
         print(p)
         self.log.info(p)
+        return p
 
     def exe_cmd(self,cmd):
         self.__send(self.channel,cmd)
-        self.__receive(self.channel)
+        res = self.__receive(self.channel)
+        return res
 
 
 if __name__ == "__main__":
