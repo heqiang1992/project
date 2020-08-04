@@ -17,6 +17,7 @@ import requests
 import wechatpy
 import itchat
 from flask import Flask, request, make_response
+import json
 
 # app = Flask(__name__)
 # app.debug = True
@@ -40,8 +41,9 @@ tkl = "%E7%B7%AE%E7%BD%AE%E6%9C%AC%E6%AE%B5%E5%86%85%E5%AE%B9%E2%82%B3tQxac0mHeE
 formData = "appkey=%s&sid=%s&pid=%s&tkl=%s&signurl=5" % (appkey, sid, pid, tkl)
 # print(formData)
 con = requests.get(url=url + "?" + formData)
-res = con.content
-print(res.decode("utf-8"))
+res = con.content.decode("utf-8")
+dd = json.loads(res)
+print(dd["content"])
 
 # url = "https://api.zhetaoke.com:10001/api/open_gaoyongzhuanlian.ashx"
 # appkey = "c163ccbe7f7b4291a81afb74804e7d35"
