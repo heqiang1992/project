@@ -53,7 +53,7 @@ def wechat_auth():  # 处理微信请求的处理函数，get方法用于认证�
             #     file.write(rec)
             # file.close()
             resp = parse_msg(rec)
-            return make_response(resp.encode("gbk"))
+            return make_response(resp)
         else:
             return 'signature is error'
 

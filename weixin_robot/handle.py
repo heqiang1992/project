@@ -37,26 +37,27 @@ def parse_msg(rec):
     :param rec:
     :return:
     """
-    try:
-        rec_gbk = rec.decode("gbk")
-    except:
-        pass
-    else:
-        if re.search("<Content>", rec_gbk):
-            xml_tool = xml.dom.minidom.Document()
-            msg_tree = xml.dom.minidom.parseString(rec_gbk).documentElement
-            content = msg_tree.getElementsByTagName("Content")[0]
-            message = content.firstChild.data
+
+    rec_gbk = rec.decode("utf-8")
+
+    if re.search("<Content>", rec_gbk):
+        xml_tool = xml.dom.minidom.Document()
+        msg_tree = xml.dom.minidom.parseString(rec_gbk).documentElement
+        content = msg_tree.getElementsByTagName("Content")[0]
+        message = content.firstChild.data
+        if re.search("\w{11}", message):
             juan_tkl = aetaoke.tkl_api(message)
-            text = xml_tool.createTextNode(juan_tkl)
-            content.removeChild(content.firstChild)
-            content.appendChild(text)
-            xml_str = msg_tree.toprettyxml()
-            message_str = xml_str.replace("\n","").replace("\t","")
-            response_message = handle_rec(message_str)
-            return response_message.encode("gbk")
-
-
+        else:
+            juan_tkl = "不支持的其他类型信息"
+        text = xml_tool.createTextNode(juan_tkl)
+        content.removeChild(content.firstChild)
+        content.appendChild(text)
+        xml_str = msg_tree.toprettyxml()
+        message_str = xml_str.replace("\n", "").replace("\t", "")
+        response_message = handle_rec(message_str)
+        return response_message.encode("utf-8")
+    else:
+        pass
 
 if __name__ == "__main__":
     a = b"<xml><ToUserName><![CDATA[gh_9916f0d0036e]]></ToUserName>\
