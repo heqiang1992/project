@@ -8,6 +8,7 @@ import re
 import xml.dom.minidom
 import weixin_robot.aetaoke as aetaoke
 import xmltodict
+from weixin_robot import model
 
 
 def handle_rec(content):
@@ -47,6 +48,11 @@ def parse_msg(rec):
         message = content.firstChild.data
         if re.search("\w{11}", message):
             juan_tkl = aetaoke.tkl_api(message)
+            # 计录券
+            model.add_tkl_record()
+            # 检查用户
+
+
         else:
             juan_tkl = "不支持的其他类型信息"
         text = xml_tool.createTextNode(juan_tkl)
@@ -58,6 +64,9 @@ def parse_msg(rec):
         return response_message.encode("utf-8")
     else:
         pass
+
+def check_order():
+    pass
 
 if __name__ == "__main__":
     a = b"<xml><ToUserName><![CDATA[gh_9916f0d0036e]]></ToUserName>\
