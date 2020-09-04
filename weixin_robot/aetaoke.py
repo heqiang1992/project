@@ -15,7 +15,6 @@ app id :wx06c79109521e34d2
 
 import requests
 from urllib import parse
-import itchat
 from flask import Flask, request, make_response
 import json
 
