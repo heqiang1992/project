@@ -9,6 +9,7 @@ import xml.dom.minidom
 import weixin_robot.aetaoke as aetaoke
 import xmltodict
 from weixin_robot import model
+import datetime
 
 
 def handle_rec(content):
@@ -45,13 +46,21 @@ def parse_msg(rec):
         xml_tool = xml.dom.minidom.Document()
         msg_tree = xml.dom.minidom.parseString(rec_gbk).documentElement
         content = msg_tree.getElementsByTagName("Content")[0]
+        FromUserName = msg_tree.getElementsByTagName("FromUserName")[0]
         message = content.firstChild.data
+        weixinID = FromUserName.firstChild.data
         if re.search("\w{11}", message):
-            juan_tkl = aetaoke.tkl_api(message)
+            # bool_flag, juan_tkl = aetaoke.tkl_api(message)
+            bool_flag, juan_tkl =  True,"eefeveeadadavee"
             # 计录券
-            model.add_tkl_record()
-            # 检查用户
-
+            if bool_flag:
+                now_time = datetime.datetime.now()
+                now_time = now_time.strftime('%Y-%m-%d %H:%M:%S')
+                model.add_tkl_record(username=weixinID,re_time=now_time ,tkl=message)
+                # 检查用户
+                check_user = model.check_user(username=weixinID)
+                if check_user is None :
+                    model.add_user(username=weixinID)
 
         else:
             juan_tkl = "不支持的其他类型信息"
@@ -65,15 +74,17 @@ def parse_msg(rec):
     else:
         pass
 
+
 def check_order():
     pass
+
 
 if __name__ == "__main__":
     a = b"<xml><ToUserName><![CDATA[gh_9916f0d0036e]]></ToUserName>\
 <FromUserName><![CDATA[oYzyEv5y_PWiC3_8BuaH90Lw-BMk]]></FromUserName>\
 <CreateTime>1596771619</CreateTime>\
 <MsgType><![CDATA[text]]></MsgType>\
-<Content><![CDATA[89]]></Content>\
+<Content><![CDATA[89123456789]]></Content>\
 <MsgId>22860274477589510</MsgId>\
 </xml>"
     parse_msg(a)
