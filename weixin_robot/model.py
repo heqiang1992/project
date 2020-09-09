@@ -61,6 +61,7 @@ def get_user_fanli():
 
 def check_user(username):
     user = session.query(UserRecord).filter_by(username=username).first()
+    return user
 
 
 
@@ -71,5 +72,5 @@ if __name__ == "__main__":
     # add_user(username="test1")
     # add_user(username="test2")
     # add_user(username="test3")
-    a = check_user(username="0")
+    a = check_user(username="1")
     print(a)

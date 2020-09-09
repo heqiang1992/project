@@ -50,16 +50,15 @@ def parse_msg(rec):
         message = content.firstChild.data
         weixinID = FromUserName.firstChild.data
         if re.search("\w{11}", message):
-            # bool_flag, juan_tkl = aetaoke.tkl_api(message)
-            bool_flag, juan_tkl =  True,"eefeveeadadavee"
+            bool_flag, juan_tkl, tao_id = aetaoke.tkl_api(message)
             # 计录券
             if bool_flag:
                 now_time = datetime.datetime.now()
                 now_time = now_time.strftime('%Y-%m-%d %H:%M:%S')
-                model.add_tkl_record(username=weixinID,re_time=now_time ,tkl=message)
+                model.add_tkl_record(username=weixinID, re_time=now_time, tkl=tao_id)
                 # 检查用户
                 check_user = model.check_user(username=weixinID)
-                if check_user is None :
+                if check_user is None:
                     model.add_user(username=weixinID)
 
         else:
@@ -75,8 +74,12 @@ def parse_msg(rec):
         pass
 
 
-def check_order():
-    pass
+def settle_accounts():
+    """
+    结算上个月的已结算订单
+    :return:
+    """
+
 
 
 if __name__ == "__main__":
