@@ -3,7 +3,7 @@
 # author:heqiang
 
 from flask import Flask, request, make_response
-import hashlib
+from weixin_robot import messageManage
 import re
 import xml.dom.minidom
 import weixin_robot.aetaoke as aetaoke
@@ -61,10 +61,19 @@ def parse_msg(rec):
                 if check_user is None:
                     model.add_user(username=weixinID)
         elif re.search("^查询", message):
-            pass
+            fanli = model.get_user_fanli(username=weixinID)
+            juan_tkl = messageManage.USERINFO%(str(fanli.username),str(fanli.fanli))
+
         elif re.search("^提现", message):
+            fanli = model.get_user_fanli(username=weixinID)
+            if fanli.fanli >= 10 :
+                juan_tkl = messageManage.ACOUNTMONEY % (str(fanli.username), str(fanli.fanli))
+                #  tixian（fanli.fanli）
+            else:
+                juan_tkl = messageManage.MONEYLESS
+        elif re.search("^订单", message):
             pass
-        elif re.search("^提现", message):
+        elif re.search("^帮助", message):
             pass
         else:
             juan_tkl = "不支持的其他类型信息"
@@ -87,12 +96,13 @@ def settle_accounts(month):
     """
 
 
+
 if __name__ == "__main__":
-    a = b"<xml><ToUserName><![CDATA[gh_9916f0d0036e]]></ToUserName>\
+    a = "<xml><ToUserName><![CDATA[gh_9916f0d0036e]]></ToUserName>\
 <FromUserName><![CDATA[oYzyEv5y_PWiC3_8BuaH90Lw-BMk]]></FromUserName>\
 <CreateTime>1596771619</CreateTime>\
 <MsgType><![CDATA[text]]></MsgType>\
-<Content><![CDATA[89123456789]]></Content>\
+<Content><![CDATA[查询]]></Content>\
 <MsgId>22860274477589510</MsgId>\
 </xml>"
-    parse_msg(a)
+    parse_msg(a.encode("utf-8"))

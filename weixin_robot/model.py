@@ -57,8 +57,9 @@ def add_tkl_record(username, re_time, tkl, tao_id):
     session.commit()
 
 
-def get_user_fanli():
-    pass
+def get_user_fanli(username):
+    fanli = session.query(UserRecord).filter_by(username=username).first()
+    return fanli
 
 
 def check_user(username):
