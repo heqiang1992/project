@@ -36,7 +36,8 @@ def tkl_api(tkl):
         product_messages = json.loads(res)["content"][0]
         # print(dd["content"])
         info_tuple = (product_messages["title"], product_messages["tkl"], product_messages["size"],
-                      product_messages["coupon_info_money"], product_messages["quanhou_jiage"], "off", "offf")
+                      product_messages["coupon_info_money"], product_messages["quanhou_jiage"],
+                      product_messages["tkfee3"], product_messages["tkfee3"])
         info = "%s一一一一反 利 消 息一一一一\n%s\n【原  价】%s\n【卷  额】%s\n【付  费】%s\n【预计返】%s\n------------------\n復.制本信息，再去τao寶下单，为威信预计返%s" % info_tuple
 
         return True, info, product_messages["tao_id"]

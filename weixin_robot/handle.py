@@ -55,7 +55,7 @@ def parse_msg(rec):
             if bool_flag:
                 now_time = datetime.datetime.now()
                 now_time = now_time.strftime('%Y-%m-%d %H:%M:%S')
-                model.add_tkl_record(username=weixinID, re_time=now_time, tkl=tao_id)
+                model.add_tkl_record(username=weixinID, re_time=now_time, tkl=juan_tkl, tao_id=tao_id)
                 # 检查用户
                 check_user = model.check_user(username=weixinID)
                 if check_user is None:
@@ -85,7 +85,6 @@ def settle_accounts(month):
     month : int
     :return:
     """
-
 
 
 if __name__ == "__main__":
