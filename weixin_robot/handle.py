@@ -60,7 +60,12 @@ def parse_msg(rec):
                 check_user = model.check_user(username=weixinID)
                 if check_user is None:
                     model.add_user(username=weixinID)
-
+        elif re.search("^查询", message):
+            pass
+        elif re.search("^提现", message):
+            pass
+        elif re.search("^提现", message):
+            pass
         else:
             juan_tkl = "不支持的其他类型信息"
         text = xml_tool.createTextNode(juan_tkl)
@@ -74,9 +79,10 @@ def parse_msg(rec):
         pass
 
 
-def settle_accounts():
+def settle_accounts(month):
     """
     结算上个月的已结算订单
+    month : int
     :return:
     """
 
