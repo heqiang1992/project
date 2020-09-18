@@ -7,7 +7,7 @@ from weixin_robot import messageManage
 import re
 import xml.dom.minidom
 import weixin_robot.aetaoke as aetaoke
-import xmltodict
+from dateutil.relativedelta import relativedelta
 from weixin_robot import model
 import datetime
 
@@ -62,11 +62,11 @@ def parse_msg(rec):
                     model.add_user(username=weixinID)
         elif re.search("^查询", message):
             fanli = model.get_user_fanli(username=weixinID)
-            juan_tkl = messageManage.USERINFO%(str(fanli.username),str(fanli.fanli))
+            juan_tkl = messageManage.USERINFO % (str(fanli.username), str(fanli.fanli))
 
         elif re.search("^提现", message):
             fanli = model.get_user_fanli(username=weixinID)
-            if fanli.fanli >= 10 :
+            if fanli.fanli >= 10:
                 juan_tkl = messageManage.ACOUNTMONEY % (str(fanli.username), str(fanli.fanli))
                 #  tixian（fanli.fanli）
             else:
@@ -88,21 +88,35 @@ def parse_msg(rec):
         pass
 
 
-def settle_accounts(month):
+def settle_accounts(timestamp=None):
     """
     结算上个月的已结算订单
-    month : int
+    timestamp : str  %Y-%m-%d %H:%M:%S
     :return:
     """
-
+    if timestamp == None:
+        now_time = datetime.datetime.now()
+        timepiece = datetime.datetime.strptime(now_time.strftime("%Y-%m-%d %H:%M:%S"),
+                                               "%Y-%m-%d %H:%M:%S") + relativedelta(months=-1)
+    else:
+        timepiece = datetime.datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+    start_time = timepiece
+    while (timepiece - start_time).months < 1:
+        param_zetaoke = str(timepiece)
+        messages = aetaoke.order_check(starttime=param_zetaoke)
+        # 处理messages ,计入返利
+        for message in messages:
+            message
+        timepiece + relativedelta(hours=3)
 
 
 if __name__ == "__main__":
-    a = "<xml><ToUserName><![CDATA[gh_9916f0d0036e]]></ToUserName>\
-<FromUserName><![CDATA[oYzyEv5y_PWiC3_8BuaH90Lw-BMk]]></FromUserName>\
-<CreateTime>1596771619</CreateTime>\
-<MsgType><![CDATA[text]]></MsgType>\
-<Content><![CDATA[查询]]></Content>\
-<MsgId>22860274477589510</MsgId>\
-</xml>"
-    parse_msg(a.encode("utf-8"))
+    #     a = "<xml><ToUserName><![CDATA[gh_9916f0d0036e]]></ToUserName>\
+    # <FromUserName><![CDATA[oYzyEv5y_PWiC3_8BuaH90Lw-BMk]]></FromUserName>\
+    # <CreateTime>1596771619</CreateTime>\
+    # <MsgType><![CDATA[text]]></MsgType>\
+    # <Content><![CDATA[查询]]></Content>\
+    # <MsgId>22860274477589510</MsgId>\
+    # </xml>"
+    #     parse_msg(a.encode("utf-8"))
+    settle_accounts()

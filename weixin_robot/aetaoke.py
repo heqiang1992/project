@@ -43,7 +43,7 @@ def tkl_api(tkl):
 
         return True, info, product_messages["tao_id"]
     else:
-        return False, "返回错误，请检查参数"
+        return False, "返回错误，请检查参数", None
 
 
 def order_check(starttime, type="1"):
