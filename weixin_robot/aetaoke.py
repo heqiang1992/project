@@ -68,9 +68,9 @@ def order_check(starttime, type="1"):
 
 
 if __name__ == "__main__":
-    # kouling = tkl_api(
-    #     "fu至内容€nvNlcYfTPba€达开ta0寶或點击链街https://m.tb.cn/h.VGQzIXv?sm=5eeeb8 至瀏lan嘂..【珍视明蒸汽眼罩热敷眼睛罩睡眠遮光透气眼疲劳发热眼贴缓解男女】")
-    # print(kouling)
+    kouling = tkl_api(
+        "0.0付致内容 Http:/T$fAJocUp4S7n$到ta0寶【(优选)秘鲁蓝莓125g/盒】")
+    print(kouling)
 
     # kouling = tkl_api(
     #     "fu植内容¢0oqCcYN3Zea¢达开τao寶【2020年新款夏季网红上衣服早秋原宿港风超火ins情侣女装短袖t恤潮】")
@@ -80,4 +80,4 @@ if __name__ == "__main__":
     #     "复制这条信息，￥0oqCcYN3Zea￥，打开【手机淘宝】即可")
     # print(kouling)
 
-    m = order_check(starttime="2020-08-21 09:00:00")
+    # m = order_check(starttime="2020-08-21 09:00:00")
