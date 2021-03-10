@@ -4,8 +4,9 @@ __autthor__ = "heqiang"
 import xml
 from xml.dom.minidom import parse
 import xml.dom.minidom
+import os,re
 
-
+#python
 class XML(object):
     def __init__(self, xmlPath):
         self.__counter = 0
@@ -56,8 +57,8 @@ class XML(object):
         return level
 
 
-if (__name__ == "__main__"):
-    i = XML("")
+# if (__name__ == "__main__"):
+#     i = XML("")
 
 """
 生成dom对象
@@ -73,3 +74,37 @@ root.nodeValue[元素值]
 root.getElementsByTagName("")
 root.childNodes
 """
+
+
+case_template = """<id id="%s" run="%s" tag="%s">
+        <case_id>%s</case_id>
+        <case_name>%s</case_name>
+        <case_path>%s</case_path>
+    </id>"""
+
+def xml_write(file,filePath):
+    #将文件信息填入格式中，写入
+    "D:\code\auto-test\testCase\hyhive_testCase\HyhiveV2\project_manage\test_6545_UserLogin_DisabledProject.py"
+    id = re.search("_\d{4}_",filePath).group(0)
+    case_file = re.search("\\w+\.py",filePath).group(0)
+    case_name = case_file.replace("\\","").replace(".py","")
+    opposite_path = "testCase" + filePath.split("testCase")[-1]
+    c = case_template % (id, "1", "1", case_name, case_name, opposite_path)
+    file.write("\n")
+    file.write(c)
+
+def demo(file,root_dir):
+    # 收集目录下的py文件生成xml格式用例集写入文件
+    search_items = os.listdir(root_dir)
+    for sub in search_items:
+        s = os.path.join(root_dir, sub)
+        if os.path.isdir(s):
+            pass
+        elif re.search("^test_.+\.py$",s):
+            #生成xml格式写入文件
+            xml_write(file,s)
+
+
+f = open("D:\\code\\auto-test\\testCase\\hyhive_testCase\\HyhiveV2\\project_manage\\project.xml",mode="a+")
+demo(file=f,root_dir="D:\\code\\auto-test\\testCase\\hyhive_testCase\\HyhiveV2\\project_manage")
+f.close()

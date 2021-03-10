@@ -21,7 +21,7 @@ def demo():
         driver.get(url=url)
         # driver.maximize_window()
         driver.implicitly_wait(10)
-        search_input = driver.find_element_by_xpath("//*[@id=\"app\"]/div/div/div/div[3]/div/div[2]/div[1]/div")
+        # search_input = driver.find_element_by_xpath("//*[@id=\"app\"]/div/div/div/div[3]/div/div[2]/div[1]/div")
         driver.find_element_by_id("rc_select_0").click()
         time.sleep(3)
         js = "document.getElementById(\"rc_select_0\").setAttribute(\"aria-activedescendant\",\"rc_select_0_list_2\")"

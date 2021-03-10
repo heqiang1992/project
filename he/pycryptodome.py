@@ -29,18 +29,43 @@ from Crypto.Random.random import StrongRandom
 
 import execjs
 
-def get_js():
-    f = open("D:\pkce.js", 'r', encoding='utf-8')
-    line = f.readline()
-    htmlstr = ''
-    while line:
-        htmlstr = htmlstr+line
-        line = f.readline()
-    return htmlstr
+# def get_js():
+#     f = open("D:\pkce.js", 'r', encoding='utf-8')
+#     line = f.readline()
+#     htmlstr = ''
+#     while line:
+#         htmlstr = htmlstr+line
+#         line = f.readline()
+#     return htmlstr
+#
+# def get_des_psswd():
+#     jsstr = get_js()
+#     ctx = execjs.compile(jsstr)
+#     return (ctx.call('run'),32)
+#
+# get_des_psswd()
 
-def get_des_psswd():
-    jsstr = get_js()
-    ctx = execjs.compile(jsstr)
-    return (ctx.call('strEnc'),32)
+ctx = execjs.compile("""
+       function run() {
+	var crypto = require("crypto")
+	
+	function base64URLEncode(str) {
+    return str.toString('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=/g, '');
+}
+	function sha256(buffer) {
+    return crypto.createHash('sha256').update(buffer).digest();
+}
+	
+	var verifier = base64URLEncode(crypto.randomBytes(32));
+    var challenge = base64URLEncode(sha256(verifier));
+    pair = [verifier,challenge]
+	return pair
+	}
+""")  # 获取代码编译完成后的对象
 
-get_des_psswd()
+
+verifier = ctx.call("run")
+print(verifier)
