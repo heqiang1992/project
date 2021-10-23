@@ -3,6 +3,8 @@
 
 import time
 import datetime
+import os
+
 """
 datetime模块用于是date和time模块的合集，datetime有两个常量，MAXYEAR和MINYEAR，分别是9999和1.
 
@@ -153,36 +155,59 @@ print(time1 - time2).days
 #计算两个日期之间相隔的秒数
 print (time1 - time2).total_seconds()
 """
+
+
 def yes_time():
-    #获取当前时间
+    # 获取当前时间
     now_time = datetime.datetime.now()
-    #当前时间减去一天 获得昨天当前时间
+    # 当前时间减去一天 获得昨天当前时间
     yes_time = now_time + datetime.timedelta(days=-1)
-    #格式化输出
+    # 格式化输出
     yes_time_str = yes_time.strftime('%Y-%m-%d %H:%M:%S')
     print(yes_time_str)  # 2017-11-01 22:56:02
 
+
 def dif_time():
-    #计算两个时间之间差值
+    # 计算两个时间之间差值
     now_time = datetime.datetime.now()
     now_time = now_time.strftime('%Y-%m-%d %H:%M:%S')
     d1 = datetime.datetime.strptime('2017-10-16 19:21:22', '%Y-%m-%d %H:%M:%S')
     d2 = datetime.datetime.strptime(now_time, '%Y-%m-%d %H:%M:%S')
-    #间隔天数
+    # 间隔天数
     day = (d2 - d1).days
-    #间隔秒数
+    # 间隔秒数
     second = (d2 - d1).seconds
 
+    print
+    day  # 17
+    print
+    second  # 13475  注意这样计算出的秒数只有小时之后的计算额 也就是不包含天之间差数
 
-    print day   #17
-    print second  #13475  注意这样计算出的秒数只有小时之后的计算额 也就是不包含天之间差数
 
 def unix_time():
-    #将python的datetime转换为unix时间戳
+    # 将python的datetime转换为unix时间戳
     dtime = datetime.datetime.now()
     un_time = time.mktime(dtime.timetuple())
-    print un_time  #1509636609.0
-    #将unix时间戳转换为python  的datetime
+    print
+    un_time  # 1509636609.0
+    # 将unix时间戳转换为python  的datetime
     unix_ts = 1509636585.0
     times = datetime.datetime.fromtimestamp(unix_ts)
-    print times  #2017-11-02 23:29:45
+    print
+    times  # 2017-11-02 23:29:45
+
+
+def timer(delay=6):
+    # 定时器，设定多小小时后返回TRUE
+    start_time = datetime.datetime.now()
+    start_time_f = start_time.strftime('%Y-%m-%d %H:%M:%S')
+    start_time_p = datetime.datetime.strptime(start_time_f, '%Y-%m-%d %H:%M:%S')
+    distance = 0
+    while distance < delay:
+        time.sleep(1200)
+        now_time = datetime.datetime.now()
+        now_time_f = now_time.strftime('%Y-%m-%d %H:%M:%S')
+        now_time_p = datetime.datetime.strptime(now_time_f, '%Y-%m-%d %H:%M:%S')
+        distance = (now_time_p - start_time_p).seconds / 3600
+        print(now_time_f)
+    os.system("shutdown /s")

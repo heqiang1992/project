@@ -79,7 +79,7 @@ def generate_excel(files):
         worksheet = workbook.add_sheet(sheetname)
         for ind, tag in enumerate(["类", "函数", "参数", "注释", "备注"]):
             worksheet.write(0, ind, tag, style)
-            worksheet.col(ind).width = 10000
+            worksheet.col(ind).width = 10000  #列宽
 
         t = open(f, "r+", encoding="utf-8")
         classitem = re.compile("class \w+\(.*\):", re.I)

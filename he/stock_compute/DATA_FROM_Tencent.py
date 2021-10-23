@@ -120,4 +120,15 @@ def makeup_data(dataType, q):
 
 if __name__ == "__main__":
     makeup_data(dataType="RT", q="000725")
+    makeup_data(dataType="RT", q="600031")
+    makeup_data(dataType="RT", q="H00305")
+    makeup_data(dataType="RT", q="000625")
+    makeup_data(dataType="RT", q="002241")
+    makeup_data(dataType="RT", q="002624")
+    makeup_data(dataType="RT", q="002902")
+    makeup_data(dataType="RT", q="002436")
+    makeup_data(dataType="RT", q="000100")
+    makeup_data(dataType="RT", q="002594")
+    #makeup_data(dataType="RT", q="000725")
+
 
